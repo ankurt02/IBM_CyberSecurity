@@ -36,7 +36,7 @@ def reveal_message(img, key):
     return message
 
 if __name__ == "__main__":
-    img = cv2.imread("banana.png")
+    img = cv2.imread("ceaser\\banana.png")
 
     key = int(input("Enter the Caesar cipher key: "))
     msg = str(input("Enter your secret message: "))

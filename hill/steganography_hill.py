@@ -1,6 +1,7 @@
-from hill_cipher import decrypt, encrypt, generate_key_matrix
-import cv2
 import os
+import cv2
+
+from hill_cipher import generate_key_matrix, encrypt, decrypt
 
 def hide_message(img, msg, key):
     size = len(key)
@@ -12,7 +13,7 @@ def hide_message(img, msg, key):
         encrypted_block = encrypt(block, key_matrix)
         
         for char in encrypted_block:
-            img[n, m, z] = ord(char) - ord('a')
+            img[n, m, z] = ord(char) - ord(' ')
             n += 1
             m += 1
             z = (z + 1) % 3
@@ -30,7 +31,7 @@ def reveal_message(img, key, msg_length):
     for _ in range(blocks):
         block = ""
         for _ in range(size):
-            block += chr(img[n, m, z] + ord('a'))
+            block += chr(img[n, m, z] + ord(' '))
             n += 1
             m += 1
             z = (z + 1) % 3
@@ -40,8 +41,9 @@ def reveal_message(img, key, msg_length):
 
     return message
 
+
 if __name__ == "__main__":
-    img = cv2.imread("icecr.png")
+    img = cv2.imread("hill\\icecr.png")
 
     key = input("Enter the key for Hill cipher: ")
     msg = input("Enter your secret message: ")
